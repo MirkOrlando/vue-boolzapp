@@ -35,9 +35,21 @@ i {
 
 /* #region common */
 
+.aside_top {
+    height: 30%;
+}
+
+.chats_preview {
+    height: 70%;
+}
+
 .propic,
 .propic img {
     border-radius: 50%;
+}
+
+.active {
+    background-color: #E9EBEB;
 }
 
 
@@ -153,6 +165,8 @@ i {
 
 /* #region chats_preview */
 
+.chats_preview {}
+
 .chats_preview>.chat {
     display: flex;
     gap: 0.5rem;
@@ -161,6 +175,15 @@ i {
 
 .chats_preview>.chat>.propic {
     width: 50px;
+}
+
+.chats_preview>.chat>.details {
+    flex: 2;
+}
+
+.chats_preview>.chat>.details>.last_message,
+.chats_preview>.chat>.time {
+    color: var(--icons_dark);
 }
 
 
