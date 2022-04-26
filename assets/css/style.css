@@ -45,6 +45,11 @@ i {
     background-color: #E9EBEB;
 }
 
+.row {
+    display: flex;
+    margin: 0.5rem 0;
+}
+
 
 /* #endregion common */
 
@@ -76,6 +81,7 @@ i {
 
 #chats_aside {
     width: 25%;
+    border-right: 1px solid #D6D6D6;
 }
 
 
@@ -236,8 +242,37 @@ i {
 /* #region chat_body */
 
 .chat_body {
-    background-image: url(./assets/img/mine.jpg);
+    background-image: url(../img/mine.jpg);
     height: calc(100% - 58px - 60px);
+    padding: 2.5rem 3rem;
+    overflow-x: auto;
+}
+
+.row_user {
+    justify-content: end;
+}
+
+.row_user>.message {
+    background-color: var(--success_light);
+}
+
+.row_contact>.message {
+    background-color: white;
+}
+
+.row>.message {
+    min-height: 50px;
+    min-width: 300px;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    position: relative;
+}
+
+.row>.message>.time {
+    position: absolute;
+    right: 0.25rem;
+    bottom: 0.25rem;
+    color: var(--icons_dark);
 }
 
 
