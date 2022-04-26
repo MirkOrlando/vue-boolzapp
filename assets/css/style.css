@@ -227,8 +227,12 @@ i {
     width: 40px;
 }
 
-.contact_info>.name_contact {
+.contact_info>.details {
     flex: 2;
+}
+
+.contact_info>.details>.last_access {
+    color: var(--icons_dark);
 }
 
 .contact_info>.actions>i {

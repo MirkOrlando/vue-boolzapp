@@ -69,13 +69,14 @@
 
             </aside>
             <!-- /chats_aside -->
-            <main id="chat_main">
+            <main id="chat_main" v-for="(contact, index) in contacts" v-if="activeChat === index">
                 <div class="contact_info">
                     <div class="propic">
-                        <img src="./assets/img/avatar_1.jpg" alt="">
+                        <img :src="linkImg + contact.avatar + extensionImg" alt="">
                     </div>
-                    <div class="name_contact fs_075">
-                        Michele
+                    <div class="details fs_075">
+                        <div class="name_contact">{{contact.name}}</div>
+                        <div class="last_access">Ultimo accesso oggi alle 12:00</div>
                     </div>
                     <div class="actions">
                         <i class="fa-solid fa-search"></i>
@@ -86,22 +87,10 @@
                 </div>
                 <!-- /contact_info -->
                 <div class="chat_body">
-                    <div class="row row_user">
+                    <div class="row" :class="thumb.status === 'sent' ? 'row_user' : 'row_contact'" v-for="(thumb, index) in contact.messages">
                         <div class="message">
-                            <span>Portato a spasso il cane?</span>
-                            <div class="time fs_075">15:30</div>
-                        </div>
-                    </div>
-                    <div class="row row_user">
-                        <div class="message">
-                            <span>Ricordati di stendere i panni</span>
-                            <div class="time fs_075">15:30</div>
-                        </div>
-                    </div>
-                    <div class="row row_contact">
-                        <div class="message">
-                            <span>Tutto fatto!</span>
-                            <div class="time fs_075">15:30</div>
+                            <span>{{thumb.message}}</span>
+                            <div class="time fs_075">{{thumb.date}}</div>
                         </div>
                     </div>
                 </div>
