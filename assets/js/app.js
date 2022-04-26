@@ -18,6 +18,7 @@ const app = new Vue({
     data: {
         linkImg: './assets/img/avatar',
         extensionImg: '.jpg',
+        activeChat: 0,
         contacts: [{
                 name: 'Michele',
                 avatar: '_1',
@@ -173,5 +174,9 @@ const app = new Vue({
             }
         ]
     },
-    methods: {},
+    methods: {
+        getActive(i) {
+            this.activeChat = i
+        }
+    },
 })
