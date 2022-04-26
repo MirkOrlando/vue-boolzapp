@@ -30,18 +30,11 @@ i {
     height: 90vh;
     margin: 2rem auto;
     display: flex;
+    border: 1px solid black;
 }
 
 
 /* #region common */
-
-.aside_top {
-    height: 30%;
-}
-
-.chats_preview {
-    height: 70%;
-}
 
 .propic,
 .propic img {
@@ -69,11 +62,20 @@ i {
 /* #endregion utility */
 
 
+/* #region hover */
+
+.chats_preview>.chat:hover {
+    background-color: #E9EBEB;
+}
+
+
+/* #region hover */
+
+
 /* #region aside */
 
 #chats_aside {
     width: 25%;
-    height: 100%;
 }
 
 
@@ -165,12 +167,16 @@ i {
 
 /* #region chats_preview */
 
-.chats_preview {}
+.chats_preview {
+    overflow-y: auto;
+    height: calc(100% - 155px);
+}
 
 .chats_preview>.chat {
     display: flex;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
+    transition: all 250ms linear;
 }
 
 .chats_preview>.chat>.propic {
