@@ -199,7 +199,7 @@ i {
 /* #endregion aside */
 
 
-/* #region main */
+/* #region chat_main */
 
 #chat_main {
     width: 75%;
@@ -207,4 +207,64 @@ i {
 }
 
 
-/* #endregion main */
+/* #region contact_info */
+
+.contact_info {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: var(--bg_light);
+    gap: 0.5rem;
+}
+
+.contact_info>.propic {
+    width: 40px;
+}
+
+.contact_info>.name_contact {
+    flex: 2;
+}
+
+.contact_info>.actions>i {
+    margin: 0 0.25rem;
+}
+
+
+/* #endregion contact_info */
+
+
+/* #region chat_body */
+
+.chat_body {
+    background-image: url(./assets/img/mine.jpg);
+    height: calc(100% - 58px - 60px);
+}
+
+
+/* #endregion chat_body */
+
+
+/* #region chat_type */
+
+.chat_type {
+    display: flex;
+    padding: 0.5rem;
+    background-color: #F3EEEA;
+}
+
+.chat_type>.emoticons_action,
+.chat_type>.vocal_action,
+.chat_type>input {
+    padding: 0.75rem;
+}
+
+.chat_type>input {
+    flex: 2;
+    border: none;
+}
+
+
+/* #endregion chat_type */
+
+
+/* #endregion chat_main */
