@@ -1,3 +1,5 @@
+/* #region common */
+
 * {
     padding: 0;
     margin: 0;
@@ -17,6 +19,16 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+#site_header {
+    height: 100px;
+    background-color: var(--success_dark);
+}
+
+#site_footer {
+    height: calc(100vh - 100px);
+    background-color: #D9DBD4;
+}
+
 img {
     max-width: 100%;
 }
@@ -28,13 +40,12 @@ i {
 .container {
     width: 85%;
     height: 90vh;
-    margin: 2rem auto;
     display: flex;
-    border: 1px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-
-
-/* #region common */
 
 .propic,
 .propic img {
@@ -81,6 +92,7 @@ i {
 
 #chats_aside {
     width: 25%;
+    background-color: white;
     border-right: 1px solid #D6D6D6;
 }
 

@@ -90,7 +90,7 @@
                     <div class="row" :class="thumb.status === 'sent' ? 'row_user' : 'row_contact'" v-for="(thumb, index) in contact.messages">
                         <div class="message">
                             <span>{{thumb.message}}</span>
-                            <div class="time fs_075">{{thumb.date}}</div>
+                            <div class="time fs_075">{{thumb.msgTime}}</div>
                         </div>
                     </div>
                 </div>
@@ -113,6 +113,9 @@
 
         </div>
     </div>
+
+    <header id="site_header"></header>
+    <footer id="site_footer"></footer>
 
     <!-- Vue v2.6.14 JavaScript Libraries -->
     <script src='https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'></script>

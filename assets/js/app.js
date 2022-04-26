@@ -177,6 +177,20 @@ const app = new Vue({
     methods: {
         getActive(i) {
             this.activeChat = i
+        },
+        getMsgTime() {
+            //console.log('getmsgtime is running');
+            this.contacts.forEach((contact, index) => {
+                //console.log(index, contact);
+                contact.messages.forEach((message, index) => {
+                    //console.log(index, message);
+                    //console.log(message.date.slice(11, 16));
+                    message.msgTime = message.date.slice(11, 16)
+                });
+            });
         }
     },
+    created() {
+        this.getMsgTime()
+    }
 })
