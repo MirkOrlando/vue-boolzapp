@@ -191,14 +191,19 @@ const app = new Vue({
             });
         },
         sendMsg() {
+            const newDate = new Date();
+            const newMsgTime = `${newDate.getHours()}:${newDate.getMinutes()}`
             const newMsg = {
-                date: Date(),
+                msgTime: newMsgTime,
                 message: this.txtMessage,
                 status: 'sent'
-            }
-            this.contacts[this.activeChat].messages.push(newMsg)
-            this.txtMessage = ''
-        }
+            };
+            this.contacts[this.activeChat].messages.push(newMsg);
+            this.txtMessage = '';
+            //this.receiveMsg();
+        },
+        //receiveMsg() {}
+
     },
     created() {
         this.getMsgTime()
