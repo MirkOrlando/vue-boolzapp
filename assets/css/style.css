@@ -33,6 +33,17 @@ i {
 }
 
 
+/* #region common */
+
+.propic,
+.propic img {
+    border-radius: 50%;
+}
+
+
+/* #endregion common */
+
+
 /* #region utility */
 
 
@@ -64,13 +75,8 @@ i {
     gap: 0.5rem;
 }
 
-.propic {
+.user_info>.propic {
     width: 40px;
-}
-
-.propic,
-.propic img {
-    border-radius: 50%;
 }
 
 .user_info>.name_contact {
@@ -143,6 +149,22 @@ i {
 
 
 /* #endregion search_chat */
+
+
+/* #region chats_preview */
+
+.chats_preview>.chat {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+}
+
+.chats_preview>.chat>.propic {
+    width: 50px;
+}
+
+
+/* #endregion chats_preview */
 
 
 /* #endregion aside */
