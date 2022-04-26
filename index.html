@@ -53,82 +53,12 @@
                 </div>
                 <!-- /aside_top -->
                 <div class="chats_preview">
-                    <div class="chat active">
+                    <div class="chat" v-for="(contact, index) in contacts">
                         <div class="propic">
-                            <img src="./assets/img/avatar_1.jpg" alt="">
+                            <img :src="linkImg + contact.avatar + extensionImg" alt="">
                         </div>
                         <div class="details">
-                            <div class="name_contact">Michele</div>
-                            <div class="last_message fs_075">Ultimo messaggio inviato</div>
-                        </div>
-                        <div class="time fs_075">12:00</div>
-                    </div>
-                    <div class="chat">
-                        <div class="propic">
-                            <img src="./assets/img/avatar_1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <div class="name_contact">Michele</div>
-                            <div class="last_message fs_075">Ultimo messaggio inviato</div>
-                        </div>
-                        <div class="time fs_075">12:00</div>
-                    </div>
-                    <div class="chat">
-                        <div class="propic">
-                            <img src="./assets/img/avatar_1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <div class="name_contact">Michele</div>
-                            <div class="last_message fs_075">Ultimo messaggio inviato</div>
-                        </div>
-                        <div class="time fs_075">12:00</div>
-                    </div>
-                    <div class="chat">
-                        <div class="propic">
-                            <img src="./assets/img/avatar_1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <div class="name_contact">Michele</div>
-                            <div class="last_message fs_075">Ultimo messaggio inviato</div>
-                        </div>
-                        <div class="time fs_075">12:00</div>
-                    </div>
-                    <div class="chat">
-                        <div class="propic">
-                            <img src="./assets/img/avatar_1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <div class="name_contact">Michele</div>
-                            <div class="last_message fs_075">Ultimo messaggio inviato</div>
-                        </div>
-                        <div class="time fs_075">12:00</div>
-                    </div>
-                    <div class="chat">
-                        <div class="propic">
-                            <img src="./assets/img/avatar_1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <div class="name_contact">Michele</div>
-                            <div class="last_message fs_075">Ultimo messaggio inviato</div>
-                        </div>
-                        <div class="time fs_075">12:00</div>
-                    </div>
-                    <div class="chat">
-                        <div class="propic">
-                            <img src="./assets/img/avatar_1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <div class="name_contact">Michele</div>
-                            <div class="last_message fs_075">Ultimo messaggio inviato</div>
-                        </div>
-                        <div class="time fs_075">12:00</div>
-                    </div>
-                    <div class="chat">
-                        <div class="propic">
-                            <img src="./assets/img/avatar_1.jpg" alt="">
-                        </div>
-                        <div class="details">
-                            <div class="name_contact">Michele</div>
+                            <div class="name_contact">{{contact.name}}</div>
                             <div class="last_message fs_075">Ultimo messaggio inviato</div>
                         </div>
                         <div class="time fs_075">12:00</div>
