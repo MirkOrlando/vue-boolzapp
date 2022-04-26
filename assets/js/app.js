@@ -200,9 +200,21 @@ const app = new Vue({
             };
             this.contacts[this.activeChat].messages.push(newMsg);
             this.txtMessage = '';
-            //this.receiveMsg();
+            this.receiveMsg();
         },
-        //receiveMsg() {}
+        receiveMsg() {
+            setTimeout(() => {
+                const newDate = new Date();
+                const newMsgTime = `${newDate.getHours()}:${newDate.getMinutes()}`
+                const newMsgTxt = 'ciao'
+                const newMsg = {
+                    msgTime: newMsgTime,
+                    message: newMsgTxt,
+                    status: 'received'
+                };
+                this.contacts[this.activeChat].messages.push(newMsg);
+            }, 2000);
+        }
 
     },
     created() {
