@@ -119,6 +119,32 @@ i {
 /* #endregion notification */
 
 
+/* #region search_chat */
+
+.search_chat {
+    padding: 0.5rem 1rem;
+    display: flex;
+}
+
+.search_chat>button,
+.search_chat>input {
+    padding: 0.25rem;
+    display: block;
+    border: none;
+}
+
+.search_chat>input {
+    flex: 2;
+}
+
+.search_chat>button {
+    background-color: transparent;
+}
+
+
+/* #endregion search_chat */
+
+
 /* #endregion aside */
 
 
