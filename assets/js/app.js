@@ -19,6 +19,7 @@ const app = new Vue({
         linkImg: './assets/img/avatar',
         extensionImg: '.jpg',
         activeChat: 0,
+        txtMessage: '',
         contacts: [{
                 name: 'Michele',
                 avatar: '_1',
@@ -188,6 +189,15 @@ const app = new Vue({
                     message.msgTime = message.date.slice(11, 16)
                 });
             });
+        },
+        sendMsg() {
+            const newMsg = {
+                date: Date(),
+                message: this.txtMessage,
+                status: 'sent'
+            }
+            this.contacts[this.activeChat].messages.push(newMsg)
+            this.txtMessage = ''
         }
     },
     created() {
