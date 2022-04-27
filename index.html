@@ -69,13 +69,13 @@
 
             </aside>
             <!-- /chats_aside -->
-            <main id="chat_main" v-for="(contact, index) in contacts" v-if="activeChat === index">
+            <main id="chat_main">
                 <div class="contact_info">
                     <div class="propic">
-                        <img :src="linkImg + contact.avatar + extensionImg" alt="">
+                        <img :src="linkImg + contacts[activeChat].avatar + extensionImg" alt="">
                     </div>
                     <div class="details fs_075">
-                        <div class="name_contact">{{contact.name}}</div>
+                        <div class="name_contact">{{contacts[activeChat].name}}</div>
                         <div class="last_access">Ultimo accesso oggi alle 12:00</div>
                     </div>
                     <div class="actions">
@@ -83,11 +83,10 @@
                         <i class="fa-solid fa-paperclip"></i>
                         <i class="fa-solid fa-ellipsis-v"></i>
                     </div>
-
                 </div>
                 <!-- /contact_info -->
                 <div class="chat_body">
-                    <div class="row" :class="thumb.status === 'sent' ? 'row_user' : 'row_contact'" v-for="(thumb, index) in contact.messages">
+                    <div class="row" :class="thumb.status === 'sent' ? 'row_user' : 'row_contact'" v-for="(thumb, index) in contacts[activeChat].messages">
                         <div class="message">
                             <span>{{thumb.message}}</span>
                             <div class="time fs_075">{{thumb.msgTime}}</div>
@@ -117,7 +116,7 @@
     <header id="site_header"></header>
     <footer id="site_footer"></footer>
 
-    <!-- Vue v2.6.14 JavaScript Libraries -->
+    <!-- Vue v2.6.14 -->
     <script src='https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'></script>
 
     <script src="./assets/js/app.js"></script>

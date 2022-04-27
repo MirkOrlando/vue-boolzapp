@@ -206,7 +206,7 @@ const app = new Vue({
             setTimeout(() => {
                 const newDate = new Date();
                 const newMsgTime = `${newDate.getHours()}:${newDate.getMinutes()}`
-                const newMsgTxt = 'ciao'
+                const newMsgTxt = 'Ciao'
                 const newMsg = {
                     msgTime: newMsgTime,
                     message: newMsgTxt,
