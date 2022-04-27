@@ -5,7 +5,6 @@ scritti dall’utente (verdi) e dall’interlocutore (bianco) assegnando
 due classi CSS diverse
 Visualizzazione dinamica della lista contatti: tramite la 
 direttiva v-for, visualizzare nome e immagine di ogni contatto
-
 Milestone 2
 Visualizzazione dinamica dei messaggi: 
 tramite la direttiva v-for, visualizzare tutti i messaggi 

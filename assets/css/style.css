@@ -297,7 +297,7 @@ i {
 .row>.message>.dropDown {
     z-index: 100;
     position: absolute;
-    bottom: -3.75rem;
+    bottom: -4rem;
     right: 0.5rem;
     background-color: white;
     box-shadow: 0 0 5px black;
