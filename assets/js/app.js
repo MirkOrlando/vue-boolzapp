@@ -251,24 +251,15 @@ const app = new Vue({
             });
         },
         clickMessage(thumb) {
-            console.log(thumb, 'sto aprendo il menu a tendina');
+            console.log(thumb, 'sto cliccando il message');
             thumb.dropDownVisible = !thumb.dropDownVisible
             console.log(thumb);
+            ++this.activeChat;
+            console.log(this.activeChat);
+            --this.activeChat;
+            console.log(this.activeChat);
         },
-        openDropDownMenu(thumb) {
-            let dropDownVisibleClass;
-            switch (thumb.dropDownVisible) {
-                case true:
-                    dropDownVisibleClass = ''
-                    break;
-
-                default:
-                    dropDownVisibleClass = 'invisible'
-                    break;
-            }
-            return dropDownVisibleClass
-        }
-
+        //openDropDownMenu(thumb) {}
     },
     created() {
         this.getMsgTime();
