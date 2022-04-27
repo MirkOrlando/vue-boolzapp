@@ -56,6 +56,14 @@ i {
 /* #region utility */
 
 
+/* visibility */
+
+.invisible {
+    z-index: -1;
+    visibility: hidden;
+}
+
+
 /* font_size */
 
 .fs_075 {
@@ -270,7 +278,7 @@ i {
 
 .row>.message {
     min-height: 50px;
-    min-width: 300px;
+    min-width: 250px;
     max-width: calc(100% - 3rem);
     word-wrap: break-word;
     width: fit-content;
@@ -284,6 +292,20 @@ i {
     right: 0.25rem;
     bottom: 0.25rem;
     color: var(--icons_dark);
+}
+
+.row>.message>.dropDown {
+    z-index: 100;
+    position: absolute;
+    bottom: -3.75rem;
+    right: 0.5rem;
+    background-color: white;
+    box-shadow: 0 0 5px black;
+    transition: all 250ms linear;
+}
+
+.row>.message>.dropDown>.dropDownItem {
+    padding: 0.75rem;
 }
 
 

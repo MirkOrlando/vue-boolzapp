@@ -191,6 +191,13 @@ const app = new Vue({
                 });
             });
         },
+        createPropertyDropDownVisible() {
+            this.contacts.forEach(contact => {
+                contact.messages.forEach(message => {
+                    message.dropDownVisible = false
+                });
+            });
+        },
         takeDate(date) {
             let hours;
             let minutes;
@@ -243,11 +250,29 @@ const app = new Vue({
                     contact.visible = true
                 }
             });
+        },
+        clickMessage(thumb) {
+            console.log(thumb, 'sto aprendo il menu a tendina');
+            thumb.dropDownVisible = !thumb.dropDownVisible
+            console.log(thumb);
+        },
+        openDropDownMenu(thumb) {
+            let dropDownVisibleClass;
+            switch (thumb.dropDownVisible) {
+                case true:
+                    dropDownVisibleClass = ''
+                    break;
 
+                default:
+                    dropDownVisibleClass = 'invisible'
+                    break;
+            }
+            return dropDownVisibleClass
         }
 
     },
     created() {
-        this.getMsgTime()
-    }
+        this.getMsgTime();
+        this.createPropertyDropDownVisible()
+    },
 })
