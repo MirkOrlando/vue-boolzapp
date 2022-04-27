@@ -254,7 +254,7 @@ const app = new Vue({
         },
         clickMessage(thumb) {
             //console.log(thumb, 'sto cliccando il message');
-            thumb.dropDownVisible = !thumb.dropDownVisible;
+            thumb.dropDownVisible = true;
             console.log(thumb);
             ++this.activeChat;
             //console.log(this.activeChat);
@@ -262,18 +262,22 @@ const app = new Vue({
             //console.log(this.activeChat);
         },
         //closeDropDownMenu() {console.log('chiudo il menu a tendina');},
-        deleteMessage(i) {
+        deleteMessage(thumb, i) {
             //console.log(i);
+            //console.log('cliccato');
+            this.closePopUp()
             this.contacts[this.activeChat].messages.splice(i, 1)
+        },
+        closePopUp() {
             this.contacts.forEach(contact => {
                 contact.messages.forEach(thumb => {
                     thumb.dropDownVisible = false
+                    console.log(thumb);
                 })
             });
-            //this.contacts[this.activeChat].messages[i].dropDownVisible = false;
-            //++this.activeChat;
+            ++this.activeChat;
             //console.log(this.activeChat);
-            //--this.activeChat;
+            --this.activeChat;
             //console.log(this.activeChat);
         }
     },

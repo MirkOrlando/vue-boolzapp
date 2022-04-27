@@ -29,6 +29,15 @@ i {
     color: var(--icons_dark);
 }
 
+label {
+    height: 100%;
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .container {
     width: 85%;
     height: 90vh;
@@ -312,7 +321,6 @@ i {
     right: 0.5rem;
     background-color: white;
     box-shadow: 0 0 5px black;
-    transition: all 250ms linear;
 }
 
 .row>.message>.dropDown>.dropDownItem {
