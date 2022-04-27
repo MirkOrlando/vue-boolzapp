@@ -199,6 +199,18 @@ const app = new Vue({
                 });
             });
         },
+        saveLastMsg() {
+            let lastMsg
+            this.contacts.forEach(contact => {
+                contact.messages.forEach(message => {
+                    lastMsg = {
+                        text: message.message,
+                        date: message.msgTime,
+                    }
+                });
+                contact.lastMsg = lastMsg
+            });
+        },
         takeDate(date) {
             let hours;
             let minutes;
@@ -227,6 +239,7 @@ const app = new Vue({
                 this.txtMessage = '';
                 this.receiveMsg();
             }
+            this.saveLastMsg()
         },
         receiveMsg() {
             setTimeout(() => {
@@ -238,6 +251,7 @@ const app = new Vue({
                     status: 'received'
                 };
                 this.contacts[this.activeChat].messages.push(newMsg);
+                this.saveLastMsg()
             }, 1000);
         },
         searchContact() {
@@ -261,12 +275,12 @@ const app = new Vue({
             --this.activeChat;
             //console.log(this.activeChat);
         },
-        //closeDropDownMenu() {console.log('chiudo il menu a tendina');},
         deleteMessage(thumb, i) {
             //console.log(i);
             //console.log('cliccato');
             this.closePopUp()
             this.contacts[this.activeChat].messages.splice(i, 1)
+            this.saveLastMsg()
         },
         closePopUp() {
             this.contacts.forEach(contact => {
@@ -284,5 +298,6 @@ const app = new Vue({
     created() {
         this.getMsgTime();
         this.createPropertyDropDownVisible();
+        this.saveLastMsg();
     },
 })
