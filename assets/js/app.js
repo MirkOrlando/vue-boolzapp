@@ -262,13 +262,18 @@ const app = new Vue({
             //console.log(this.activeChat);
         },
         //closeDropDownMenu() {console.log('chiudo il menu a tendina');},
-        deleteMessage(thumb, i) {
+        deleteMessage(i) {
             //console.log(i);
             this.contacts[this.activeChat].messages.splice(i, 1)
-            this.contacts[this.activeChat].messages[i].dropDownVisible = false;
-            ++this.activeChat;
+            this.contacts.forEach(contact => {
+                contact.messages.forEach(thumb => {
+                    thumb.dropDownVisible = false
+                })
+            });
+            //this.contacts[this.activeChat].messages[i].dropDownVisible = false;
+            //++this.activeChat;
             //console.log(this.activeChat);
-            --this.activeChat;
+            //--this.activeChat;
             //console.log(this.activeChat);
         }
     },
