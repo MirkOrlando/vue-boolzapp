@@ -251,18 +251,20 @@ const app = new Vue({
             });
         },
         clickMessage(thumb) {
-            console.log(thumb, 'sto cliccando il message');
-            thumb.dropDownVisible = !thumb.dropDownVisible
-            console.log(thumb);
+            //console.log(thumb, 'sto cliccando il message');
+            thumb.dropDownVisible = !thumb.dropDownVisible;
+            //console.log(thumb);
             ++this.activeChat;
-            console.log(this.activeChat);
+            //console.log(this.activeChat);
             --this.activeChat;
-            console.log(this.activeChat);
+            //console.log(this.activeChat);
         },
-        //openDropDownMenu(thumb) {}
+        closeDropDownMenu() {
+            console.log('chiudo il menu a tendina');
+        }
     },
     created() {
         this.getMsgTime();
-        this.createPropertyDropDownVisible()
+        this.createPropertyDropDownVisible();
     },
 })

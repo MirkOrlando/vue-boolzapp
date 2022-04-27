@@ -85,8 +85,8 @@
                 </div>
                 <!-- /contact_info -->
                 <div class="chat_body">
-                    <div class="row" :class="thumb.status === 'sent' ? 'row_user' : 'row_contact'" v-for="(thumb, index) in contacts[activeChat].messages" @click="clickMessage(thumb)">
-                        <div class="message">
+                    <div class="row" :class="thumb.status === 'sent' ? 'row_user' : 'row_contact'" v-for="(thumb, index) in contacts[activeChat].messages">
+                        <div class="message" @click="clickMessage(thumb)" @focusout="closeDropDownMenu">
                             <span>{{thumb.message}}</span>
                             <div class="time fs_075">{{thumb.msgTime}}</div>
                             <div class="dropDown" :class="!thumb.dropDownVisible ? 'invisible' : ''">
