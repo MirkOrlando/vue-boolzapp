@@ -191,25 +191,41 @@ const app = new Vue({
                 });
             });
         },
+        takeDate(date) {
+            let hours;
+            let minutes;
+            if (date.getHours().toString().length < 2) {
+                hours = 0 + date.getHours().toString()
+            } else {
+                hours = date.getHours().toString()
+            }
+            if (date.getMinutes().toString().length < 2) {
+                minutes = 0 + date.getMinutes().toString()
+            } else {
+                minutes = date.getMinutes().toString()
+            }
+            const newMsgTime = `${hours}:${minutes}`
+            return newMsgTime
+        },
         sendMsg() {
-            const newDate = new Date();
-            const newMsgTime = `${newDate.getHours()}:${newDate.getMinutes()}`
-            const newMsg = {
-                msgTime: newMsgTime,
-                message: this.txtMessage,
-                status: 'sent'
-            };
-            this.contacts[this.activeChat].messages.push(newMsg);
-            this.txtMessage = '';
-            this.receiveMsg();
+            if (this.txtMessage !== '') {
+                const newDate = new Date();
+                const newMsg = {
+                    msgTime: this.takeDate(newDate),
+                    message: this.txtMessage,
+                    status: 'sent'
+                };
+                this.contacts[this.activeChat].messages.push(newMsg);
+                this.txtMessage = '';
+                this.receiveMsg();
+            }
         },
         receiveMsg() {
             setTimeout(() => {
                 const newDate = new Date();
-                const newMsgTime = `${newDate.getHours()}:${newDate.getMinutes()}`
                 const newMsgTxt = 'Ok'
                 const newMsg = {
-                    msgTime: newMsgTime,
+                    msgTime: this.takeDate(newDate),
                     message: newMsgTxt,
                     status: 'received'
                 };
@@ -217,7 +233,7 @@ const app = new Vue({
             }, 1000);
         },
         searchContact() {
-            console.log(this.searchKey, 'sto cercando un contatto');
+            //console.log(this.searchKey, 'sto cercando un contatto');
             this.contacts.forEach(contact => {
                 const name = contact.name.toUpperCase();
                 const searchKey = this.searchKey.toUpperCase()
