@@ -17,16 +17,8 @@
 body {
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-#site_header {
-    height: 100px;
-    background-color: var(--success_dark);
-}
-
-#site_footer {
-    height: calc(100vh - 100px);
-    background-color: #D9DBD4;
+    height: 100vh;
+    background: linear-gradient(to bottom, var(--success_dark), var(--success_dark) 120px, #D9DBD5 120px, #D9DBD5 100%);
 }
 
 img {
@@ -50,10 +42,6 @@ i {
 .propic,
 .propic img {
     border-radius: 50%;
-}
-
-.active {
-    background-color: #E9EBEB;
 }
 
 .row {
@@ -195,6 +183,10 @@ i {
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     transition: all 250ms linear;
+}
+
+.chats_preview>.chat.active {
+    background-color: #dcdfdf;
 }
 
 .chats_preview>.chat>.propic {

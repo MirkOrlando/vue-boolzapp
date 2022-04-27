@@ -20,6 +20,7 @@ const app = new Vue({
         extensionImg: '.jpg',
         activeChat: 0,
         txtMessage: '',
+        searchKey: '',
         contacts: [{
                 name: 'Michele',
                 avatar: '_1',
@@ -206,14 +207,27 @@ const app = new Vue({
             setTimeout(() => {
                 const newDate = new Date();
                 const newMsgTime = `${newDate.getHours()}:${newDate.getMinutes()}`
-                const newMsgTxt = 'Ciao'
+                const newMsgTxt = 'Ok'
                 const newMsg = {
                     msgTime: newMsgTime,
                     message: newMsgTxt,
                     status: 'received'
                 };
                 this.contacts[this.activeChat].messages.push(newMsg);
-            }, 2000);
+            }, 1000);
+        },
+        searchContact() {
+            console.log(this.searchKey, 'sto cercando un contatto');
+            this.contacts.forEach(contact => {
+                const name = contact.name.toUpperCase();
+                const searchKey = this.searchKey.toUpperCase()
+                if (!name.includes(searchKey)) {
+                    contact.visible = false
+                } else {
+                    contact.visible = true
+                }
+            });
+
         }
 
     },

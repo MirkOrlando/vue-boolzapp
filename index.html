@@ -44,16 +44,16 @@
                     </div>
                     <!-- /notification -->
                     <div class="search_chat">
-                        <button>
+                        <button @click="searchContact">
                             <i class="fa-solid fa-search" class="fs_075"></i>
                         </button>
-                        <input class="fs_075" type="text" placeholder="Cerca o inizia una nuova chat">
+                        <input class="fs_075" type="text" placeholder="Cerca o inizia una nuova chat" v-model="searchKey" @keyup="searchContact">
                     </div>
                     <!-- /search_chat -->
                 </div>
                 <!-- /aside_top -->
                 <div class="chats_preview">
-                    <div class="chat" :class="activeChat === index ? 'active' : ''" v-for="(contact, index) in contacts" @click="getActive(index)">
+                    <div class="chat" :class="activeChat === index ? 'active' : ''" v-for="(contact, index) in contacts" v-if="contact.visible" @click="getActive(index)">
                         <div class="propic">
                             <img :src="linkImg + contact.avatar + extensionImg" alt="">
                         </div>
@@ -112,9 +112,6 @@
 
         </div>
     </div>
-
-    <header id="site_header"></header>
-    <footer id="site_footer"></footer>
 
     <!-- Vue v2.6.14 -->
     <script src='https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'></script>
