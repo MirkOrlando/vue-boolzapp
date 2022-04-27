@@ -12,6 +12,8 @@ relativi al contatto attivo all’interno del pannello della conversazione
 Click sul contatto mostra la conversazione del contatto cliccato
 */
 
+
+
 const app = new Vue({
     el: '#app',
     data: {
@@ -253,14 +255,21 @@ const app = new Vue({
         clickMessage(thumb) {
             //console.log(thumb, 'sto cliccando il message');
             thumb.dropDownVisible = !thumb.dropDownVisible;
-            //console.log(thumb);
+            console.log(thumb);
             ++this.activeChat;
             //console.log(this.activeChat);
             --this.activeChat;
             //console.log(this.activeChat);
         },
-        closeDropDownMenu() {
-            console.log('chiudo il menu a tendina');
+        //closeDropDownMenu() {console.log('chiudo il menu a tendina');},
+        deleteMessage(thumb, i) {
+            //console.log(i);
+            this.contacts[this.activeChat].messages.splice(i, 1)
+            this.contacts[this.activeChat].messages[i].dropDownVisible = false;
+            ++this.activeChat;
+            //console.log(this.activeChat);
+            --this.activeChat;
+            //console.log(this.activeChat);
         }
     },
     created() {

@@ -49,6 +49,16 @@ i {
     margin: 0.5rem 0;
 }
 
+.filter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100vh;
+    width: 100vw;
+    background-color: red;
+}
+
 
 /* #endregion common */
 
