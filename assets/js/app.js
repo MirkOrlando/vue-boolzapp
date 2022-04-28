@@ -63,6 +63,18 @@ const app = new Vue({
         txtMessage: '',
         searchKey: '',
         isTypingResult: false,
+        rndTxtMsg: [
+            'Scappa Marty!',
+            'Nulla è reale, tutto è lecito',
+            'Questi non sono i droidi che state cercando',
+            "Mi chiamo Massimo Decimo Meridio",
+            "Sei proprio tu John Wayne? E io chi sarei?",
+            "Vieni con me se vuoi vivere",
+            "Non odii anche tu i silenzi che mettono a disagio?",
+            "Ok",
+            "Cosa vedono i tuoi occhi da elfo?",
+            "I am Ironman"
+        ],
         contacts: [{
                 name: 'Michele',
                 avatar: '_1',
@@ -308,10 +320,16 @@ const app = new Vue({
             }
             this.saveLastMsg()
         },
+        getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+        getRndMsgTxt() {
+            return this.rndTxtMsg[this.getRndInteger(0, this.rndTxtMsg.length)]
+        },
         receiveMsg() {
             setTimeout(() => {
                 const newDate = new Date();
-                const newMsgTxt = 'Ok'
+                const newMsgTxt = this.getRndMsgTxt();
                 const newMsg = {
                     msgTime: this.takeTime(newDate),
                     message: newMsgTxt,
@@ -343,7 +361,7 @@ const app = new Vue({
             --this.activeChat;
             //console.log(this.activeChat);
         },
-        deleteMessage(thumb, i) {
+        deleteMessage(i) {
             //console.log(i);
             //console.log('cliccato');
             this.closePopUp()
