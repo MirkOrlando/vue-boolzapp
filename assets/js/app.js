@@ -75,6 +75,8 @@ const app = new Vue({
         isContactTyping: false,
         isPopUpVisible: false,
         isPopUpNewChatVisible: false,
+        newName: '',
+        newIcon: '',
         rndTxtMsg: [
             'Scappa Marty!',
             'Nulla è reale, tutto è lecito',
@@ -280,15 +282,19 @@ const app = new Vue({
             this.contacts.forEach(contact => {
                 contact.messages.forEach(message => {
                     let cutText
-                    if (message.message.length > 20) {
-                        cutText = message.message.slice(0, 19) + "..."
+                    if (message.length < 1) {
+                        lastMsg = ''
                     } else {
-                        cutText = message.message
-                    }
-                    //console.log(cutText);
-                    lastMsg = {
-                        text: cutText,
-                        date: message.msgTime,
+                        if (message.message.length > 20) {
+                            cutText = message.message.slice(0, 19) + "..."
+                        } else {
+                            cutText = message.message
+                        }
+                        //console.log(cutText);
+                        lastMsg = {
+                            text: cutText,
+                            date: message.msgTime,
+                        }
                     }
                 });
                 contact.lastMsg = lastMsg
@@ -402,6 +408,7 @@ const app = new Vue({
         },
         closePopUp() {
             this.isPopUpVisible = false
+            this.isPopUpNewChatVisible = false
             this.contacts.forEach(contact => {
                 contact.messages.forEach(thumb => {
                     thumb.dropDownVisible = false
@@ -428,6 +435,29 @@ const app = new Vue({
         },
         clickEllipsis() {
             this.isPopUpVisible = !this.isPopUpVisible;
+        },
+        clickNewChat() {
+            this.isPopUpNewChatVisible = !this.isPopUpNewChatVisible;
+        },
+        regretNewChat() {
+            this.isPopUpNewChatVisible = false;
+            this.newName = '';
+            this.newIcon = '';
+        },
+        confirmNewChat() {
+            if (this.newName !== '' && this.newIcon !== '') {
+                const newContact = {
+                    name: this.newName,
+                    avatar: this.newIcon,
+                    visible: true,
+                    messages: [],
+                };
+                this.contacts.unshift(newContact);
+                this.isPopUpNewChatVisible = false;
+                this.newName = '';
+                this.newIcon = '';
+                this.saveLastMsg()
+            }
         },
     },
     created() {

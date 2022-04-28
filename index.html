@@ -27,23 +27,30 @@
                             Sofia
                         </div>
                         <div class="actions">
-                            <i class="fa-solid fa-circle-notch"></i>
-                            <i class="fa-solid fa-message">
-                                <div class="popupNewChat">
-                                    <h3>Avvia una nuova conversazione</h3>
-                                    <div class="name">
-                                        <input type="text" placeholder="Digita il nome">
-                                    </div>
-                                    <div class="img_link">
-                                        <input type="text" placeholder="Digita il link all'icona">
-                                    </div>
-                                    <div class="btn_action">
-                                        <button class="btn confirm">Conferma</button>
-                                        <button class="btn cancel">Annulla</button>
-                                    </div>
+                            <div class="popupNewChat" :class="!isPopUpNewChatVisible ? 'invisible' : ''">
+                                <h3>Avvia una nuova conversazione</h3>
+                                <div class="name">
+                                    <input type="text" placeholder="Digita il nome" v-model="newName">
                                 </div>
-                            </i>
-                            <i class="fa-solid fa-ellipsis-v"></i>
+                                <div class="img_link">
+                                    <input type="text" placeholder="Digita il link all'icona" v-model="newIcon">
+                                </div>
+                                <div class="btn_action">
+                                    <button class="btn confirm" :oninput="validate()" @click="confirmNewChat">Conferma</button>
+                                    <button class="btn cancel" :oninput="validate()" @click="regretNewChat">Annulla</button>
+                                </div>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-circle-notch"></i>
+                            </div>
+                            <div class="w_label p_relative">
+                                <label for="" @click="clickNewChat"></label>
+                                <i class="fa-solid fa-message">
+                                </i>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-ellipsis-v"></i>
+                            </div>
                         </div>
                     </div>
                     <!-- /user_info -->
@@ -73,9 +80,9 @@
                         </div>
                         <div class="details">
                             <div class="name_contact">{{contact.name}}</div>
-                            <div class="last_message fs_075">{{contact.lastMsg.text}}</div>
+                            <div class="last_message fs_075" v-if="contact.lastMsg !== ''">{{contact.lastMsg.text}}</div>
                         </div>
-                        <div class="time fs_075">{{contact.lastMsg.date}}</div>
+                        <div class="time fs_075" v-if="contact.lastMsg !== ''">{{contact.lastMsg.date}}</div>
                     </div>
                 </div>
                 <!-- /chats_preview -->
@@ -109,7 +116,7 @@
                 <!-- /contact_info -->
                 <div class="chat_body">
                     <div class="row" :class="thumb.status === 'sent' ? 'row_user' : 'row_contact'" v-for="(thumb, index) in contacts[activeChat].messages">
-                        <div class="filter" v-if="thumb.dropDownVisible || isPopUpVisible" @click="closePopUp"></div>
+                        <div class="filter" v-if="thumb.dropDownVisible || isPopUpVisible || isPopUpNewChatVisible" :style="isPopUpNewChatVisible ? 'background-color:#00000042;' : ''" @click="closePopUp"></div>
                         <div class="message">
                             <label for="" @click="clickMessage(thumb)"></label>
                             <span>{{thumb.message}}</span>
