@@ -104,10 +104,13 @@
                         <i class="fa-regular fa-face-smile"></i>
                     </div>
                     <!-- /emoticons_action -->
-                    <input type="text" placeholder="Scrivi un messaggio" :oninput="validate()" v-model="txtMessage" @keyup.enter="sendMsg">
+                    <input type="text" placeholder="Scrivi un messaggio" :oninput="validate()" v-model="txtMessage" @keyup.enter="sendMsg" @keyup.8="isTypeInputEmpty" @keypress="isTyping">
                     <!-- /input -->
-                    <div class="vocal_action">
+                    <div class="vocal_action" v-if="!isTypingResult">
                         <i class="fa-solid fa-microphone"></i>
+                    </div>
+                    <div class="sending_action" v-else>
+                        <i class="fa-solid fa-paper-plane" @click="sendMsg"></i>
                     </div>
                     <!-- /vocal_action -->
                 </div>
