@@ -50,6 +50,16 @@ label {
     transform: translate(-50%, -50%);
 }
 
+.btn {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.btn.confirm {
+    background-color: #67cb67;
+}
+
 .dropDownItem {
     border: 1px solid rgb(230, 228, 228);
 }
@@ -155,6 +165,45 @@ i:hover {
 
 .user_info>.actions>i {
     margin: 0 0.25rem;
+}
+
+.user_info>.actions>i>.popupNewChat {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    background-color: white;
+    /* var(--success_light) */
+    box-shadow: 0 0 5px black;
+    padding: 1rem;
+    max-width: 250px;
+    text-transform: none;
+    font-weight: 400;
+    z-index: 100;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user_info>.actions>i>.popupNewChat>h3 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.user_info>.actions>i>.popupNewChat input {
+    background-color: transparent;
+    border: 2px solid lightgrey;
+    border-radius: 1.5rem;
+    padding: 0.5rem;
+}
+
+.user_info>.actions>i>.popupNewChat>h3,
+.user_info>.actions>i>.popupNewChat>div {
+    margin: 0.25rem;
 }
 
 

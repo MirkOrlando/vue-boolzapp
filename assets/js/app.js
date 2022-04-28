@@ -48,7 +48,8 @@ Funzionalità
   rimane la conversazione vuota) oppure l'intera chat comprensiva di 
   tutti i dati del contatto oltre che tutti i suoi messaggi (quindi sparisce il
   contatto anche dalla lista di sinistra)
-dare la possibilità all'utente di aggiungere una nuova conversazione, inserendo in un popup il nome e il link all'icona del nuovo contatto
+- dare la possibilità all'utente di aggiungere una nuova conversazione,
+  inserendo in un popup il nome e il link all'icona del nuovo contatto
 fare scroll in giù in automatico fino al messaggio più recente, quando viene aggiunto un nuovo messaggio alla conversazione (NB: potrebbe esserci bisogno di utilizzare nextTick: https://vuejs.org/v2/api/#Vue-nextTick)
 aggiungere le emoticons, tramite l'utilizzo di una libreria, ad esempio: https://www.npmjs.com/package/vue-emoji-picker
 Grafica
@@ -73,6 +74,7 @@ const app = new Vue({
         isOnline: false,
         isContactTyping: false,
         isPopUpVisible: false,
+        isPopUpNewChatVisible: false,
         rndTxtMsg: [
             'Scappa Marty!',
             'Nulla è reale, tutto è lecito',
@@ -427,7 +429,6 @@ const app = new Vue({
         clickEllipsis() {
             this.isPopUpVisible = !this.isPopUpVisible;
         },
-
     },
     created() {
         this.getMsgTime();
