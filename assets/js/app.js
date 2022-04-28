@@ -211,7 +211,7 @@ const app = new Vue({
                 contact.lastMsg = lastMsg
             });
         },
-        takeDate(date) {
+        takeTime(date) {
             let hours;
             let minutes;
             if (date.getHours().toString().length < 2) {
@@ -227,11 +227,18 @@ const app = new Vue({
             const newMsgTime = `${hours}:${minutes}`
             return newMsgTime
         },
+        validate() {
+            //console.log('validate');
+            if (/^\s/.test(this.txtMessage)) {
+                this.txtMessage = '';
+            }
+        },
         sendMsg() {
+            //console.log(event);
             if (this.txtMessage !== '') {
                 const newDate = new Date();
                 const newMsg = {
-                    msgTime: this.takeDate(newDate),
+                    msgTime: this.takeTime(newDate),
                     message: this.txtMessage,
                     status: 'sent'
                 };
@@ -246,7 +253,7 @@ const app = new Vue({
                 const newDate = new Date();
                 const newMsgTxt = 'Ok'
                 const newMsg = {
-                    msgTime: this.takeDate(newDate),
+                    msgTime: this.takeTime(newDate),
                     message: newMsgTxt,
                     status: 'received'
                 };

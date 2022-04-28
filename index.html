@@ -104,7 +104,7 @@
                         <i class="fa-regular fa-face-smile"></i>
                     </div>
                     <!-- /emoticons_action -->
-                    <input type="text" placeholder="Scrivi un messaggio" v-model="txtMessage" @keyup.enter="sendMsg">
+                    <input type="text" placeholder="Scrivi un messaggio" :oninput="validate()" v-model="txtMessage" @keyup.enter="sendMsg">
                     <!-- /input -->
                     <div class="vocal_action">
                         <i class="fa-solid fa-microphone"></i>
