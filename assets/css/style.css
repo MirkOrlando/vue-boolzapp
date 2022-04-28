@@ -27,6 +27,7 @@ img {
 
 i {
     color: var(--icons_dark);
+    cursor: pointer;
 }
 
 label {
@@ -46,6 +47,14 @@ label {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.dropDownItem {
+    border: 1px solid rgb(230, 228, 228);
+}
+
+.actions {
+    cursor: context-menu;
 }
 
 .propic,
@@ -74,6 +83,13 @@ label {
 
 
 /* #region utility */
+
+
+/* position */
+
+.p_relative {
+    position: relative;
+}
 
 
 /* visibility */
@@ -129,6 +145,7 @@ label {
 
 .user_info>.name_contact {
     flex: 2;
+    cursor: context-menu;
 }
 
 .user_info>.actions>i {
@@ -161,6 +178,10 @@ label {
 
 .notification>.icon_notification>i {
     color: var(--primary_light);
+}
+
+.notification>.text_notification>.text {
+    cursor: context-menu;
 }
 
 .notification>.text_notification>.action {
@@ -212,6 +233,7 @@ label {
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     transition: all 250ms linear;
+    cursor: context-menu;
 }
 
 .chats_preview>.chat.active {
@@ -262,6 +284,7 @@ label {
 
 .contact_info>.details {
     flex: 2;
+    cursor: context-menu;
 }
 
 .contact_info>.details>.status {
@@ -269,7 +292,30 @@ label {
 }
 
 .contact_info>.actions>i {
-    margin: 0 0.25rem;
+    padding: 0 0.5rem;
+}
+
+.contact_info>.actions>i>.dropDown {
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    text-transform: none;
+    font-weight: 400;
+    z-index: 100;
+    position: absolute;
+    right: 0.25rem;
+    top: 0.5rem;
+    background-color: white;
+    box-shadow: 0 0 5px black;
+}
+
+.contact_info>.actions>i>.dropDown>.dropDownItem {
+    padding: 0.75rem;
+}
+
+.contact_info>.actions>i>.dropDown>.dropDownItem:hover {
+    background-color: #dcdfdf;
+    cursor: pointer;
+    transition: all 250ms linear;
 }
 
 
@@ -281,7 +327,7 @@ label {
 .chat_body {
     background-image: url(../img/mine.jpg);
     height: calc(100% - 58px - 60px);
-    padding: 1rem 3rem;
+    padding: 3rem;
     overflow-x: auto;
 }
 

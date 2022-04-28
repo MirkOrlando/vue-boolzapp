@@ -40,7 +40,14 @@ Funzionalità
   visualizzare il testo "sta scrivendo..." nel timeout in cui il pc risponde, 
   poi mantenere la scritta "online" per un paio di secondi e 
   infine visualizzare "ultimo accesso alle xx:yy" con l'orario corretto
-dare la possibilità all'utente di cancellare tutti i messaggi di un contatto o di cancellare l'intera chat con tutti i suoi dati: cliccando sull'icona con i tre pallini in alto a destra, si apre un dropdown menu in cui sono presenti le voci "Elimina messaggi" ed "Elimina chat"; cliccando su di essi si cancellano rispettivamente tutti i messaggi di quel contatto (quindi rimane la conversazione vuota) oppure l'intera chat comprensiva di tutti i dati del contatto oltre che tutti i suoi messaggi (quindi sparisce il contatto anche dalla lista di sinistra)
+- dare la possibilità all'utente di cancellare tutti i messaggi di un contatto o 
+  di cancellare l'intera chat con tutti i suoi dati: cliccando sull'icona con 
+  i tre pallini in alto a destra, si apre un dropdown menu in cui sono presenti 
+  le voci "Elimina messaggi" ed "Elimina chat"; cliccando su di essi si 
+  cancellano rispettivamente tutti i messaggi di quel contatto (quindi 
+  rimane la conversazione vuota) oppure l'intera chat comprensiva di 
+  tutti i dati del contatto oltre che tutti i suoi messaggi (quindi sparisce il
+  contatto anche dalla lista di sinistra)
 dare la possibilità all'utente di aggiungere una nuova conversazione, inserendo in un popup il nome e il link all'icona del nuovo contatto
 fare scroll in giù in automatico fino al messaggio più recente, quando viene aggiunto un nuovo messaggio alla conversazione (NB: potrebbe esserci bisogno di utilizzare nextTick: https://vuejs.org/v2/api/#Vue-nextTick)
 aggiungere le emoticons, tramite l'utilizzo di una libreria, ad esempio: https://www.npmjs.com/package/vue-emoji-picker
@@ -65,6 +72,7 @@ const app = new Vue({
         isTypingResult: false,
         isOnline: false,
         isContactTyping: false,
+        isPopUpVisible: false,
         rndTxtMsg: [
             'Scappa Marty!',
             'Nulla è reale, tutto è lecito',
@@ -379,13 +387,16 @@ const app = new Vue({
             //console.log(this.activeChat);
         },
         deleteMessage(i) {
-            console.log(i, 'cliccato');
-            //console.log('cliccato');
+            //console.log(i, 'cliccato');
             this.closePopUp()
             this.contacts[this.activeChat].messages.splice(i, 1)
             this.saveLastMsg()
         },
+        deleteAllMsg() {
+            this.contacts[this.activeChat].messages = []
+        },
         closePopUp() {
+            this.isPopUpVisible = false
             this.contacts.forEach(contact => {
                 contact.messages.forEach(thumb => {
                     thumb.dropDownVisible = false
@@ -409,7 +420,11 @@ const app = new Vue({
             if (this.txtMessage === '') {
                 this.isTypingResult = false
             }
-        }
+        },
+        clickEllipsis() {
+            this.isPopUpVisible = !this.isPopUpVisible;
+        },
+
     },
     created() {
         this.getMsgTime();
