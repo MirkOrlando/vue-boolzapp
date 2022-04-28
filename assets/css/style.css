@@ -231,15 +231,6 @@ label {
     color: var(--icons_dark);
 }
 
-.chats_preview>.chat>.details>.last_message {
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-}
-
 
 /* #endregion chats_preview */
 

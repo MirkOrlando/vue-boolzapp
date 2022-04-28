@@ -31,10 +31,15 @@ Funzionalità
   quando l'input non è vuoto si visualizza l'icona dell'aeroplano. 
   Quando il messaggio è stato inviato e l'input si svuota, si torna a visualizzare il microfono. 
   B) inviare quindi il messaggio anche cliccando sull'icona dell'aeroplano
-- predisporre una lista di frasi e/o citazioni da utilizzare al posto della risposta "ok:" quando il pc risponde, anziché scrivere "ok", scegliere una frase random dalla lista e utilizzarla come testo del messaggio di risposta del pc
-visualizzare nella lista dei contatti l'ultimo messaggio inviato/ricevuto da ciascun contatto
-inserire l'orario corretto nei messaggi (v. note day.js)
-sotto al nome del contatto nella parte in alto a destra, cambiare l'indicazione dello stato: visualizzare il testo "sta scrivendo..." nel timeout in cui il pc risponde, poi mantenere la scritta "online" per un paio di secondi e infine visualizzare "ultimo accesso alle xx:yy" con l'orario corretto
+- predisporre una lista di frasi e/o citazioni da utilizzare al posto della risposta "ok:" 
+  quando il pc risponde, anziché scrivere "ok", scegliere una frase random dalla 
+  lista e utilizzarla come testo del messaggio di risposta del pc
+- visualizzare nella lista dei contatti l'ultimo messaggio inviato/ricevuto da ciascun contatto
+- inserire l'orario corretto nei messaggi (v. note day.js)
+- sotto al nome del contatto nella parte in alto a destra, cambiare l'indicazione dello stato: 
+  visualizzare il testo "sta scrivendo..." nel timeout in cui il pc risponde, 
+  poi mantenere la scritta "online" per un paio di secondi e 
+  infine visualizzare "ultimo accesso alle xx:yy" con l'orario corretto
 dare la possibilità all'utente di cancellare tutti i messaggi di un contatto o di cancellare l'intera chat con tutti i suoi dati: cliccando sull'icona con i tre pallini in alto a destra, si apre un dropdown menu in cui sono presenti le voci "Elimina messaggi" ed "Elimina chat"; cliccando su di essi si cancellano rispettivamente tutti i messaggi di quel contatto (quindi rimane la conversazione vuota) oppure l'intera chat comprensiva di tutti i dati del contatto oltre che tutti i suoi messaggi (quindi sparisce il contatto anche dalla lista di sinistra)
 dare la possibilità all'utente di aggiungere una nuova conversazione, inserendo in un popup il nome e il link all'icona del nuovo contatto
 fare scroll in giù in automatico fino al messaggio più recente, quando viene aggiunto un nuovo messaggio alla conversazione (NB: potrebbe esserci bisogno di utilizzare nextTick: https://vuejs.org/v2/api/#Vue-nextTick)
@@ -219,9 +224,9 @@ const app = new Vue({
         },
         getMsgTime() {
             //console.log('getmsgtime is running');
-            this.contacts.forEach((contact, index) => {
+            this.contacts.forEach((contact) => {
                 //console.log(index, contact);
-                contact.messages.forEach((message, index) => {
+                contact.messages.forEach((message) => {
                     //console.log(index, message);
                     //console.log(message.date.slice(11, 16));
                     message.msgTime = message.date.slice(11, 16)
@@ -235,12 +240,30 @@ const app = new Vue({
                 });
             });
         },
+        saveLastAccess() {
+            let lastAccess
+            this.contacts.forEach(contact => {
+                contact.messages.forEach(message => {
+                    if (message.status === "received") {
+                        lastAccess = message.msgTime
+                    }
+                });
+                contact.lastAccess = lastAccess
+            });
+        },
         saveLastMsg() {
             let lastMsg
             this.contacts.forEach(contact => {
                 contact.messages.forEach(message => {
+                    let cutText
+                    if (message.message.length > 20) {
+                        cutText = message.message.slice(0, 19) + "..."
+                    } else {
+                        cutText = message.message
+                    }
+                    //console.log(cutText);
                     lastMsg = {
-                        text: message.message,
+                        text: cutText,
                         date: message.msgTime,
                     }
                 });
@@ -296,6 +319,7 @@ const app = new Vue({
                 };
                 this.contacts[this.activeChat].messages.push(newMsg);
                 this.saveLastMsg()
+                this.saveLastAccess()
             }, 1000);
         },
         searchContact() {
@@ -356,5 +380,6 @@ const app = new Vue({
         this.getMsgTime();
         this.createPropertyDropDownVisible();
         this.saveLastMsg();
+        this.saveLastAccess();
     },
 })
