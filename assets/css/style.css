@@ -264,7 +264,7 @@ label {
     flex: 2;
 }
 
-.contact_info>.details>.last_access {
+.contact_info>.details>.status {
     color: var(--icons_dark);
 }
 

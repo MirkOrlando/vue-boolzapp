@@ -63,6 +63,8 @@ const app = new Vue({
         txtMessage: '',
         searchKey: '',
         isTypingResult: false,
+        isOnline: false,
+        isContactTyping: false,
         rndTxtMsg: [
             'Scappa Marty!',
             'Nulla è reale, tutto è lecito',
@@ -295,8 +297,8 @@ const app = new Vue({
             } else {
                 minutes = date.getMinutes().toString()
             }
-            const newMsgTime = `${hours}:${minutes}`
-            return newMsgTime
+            const newTime = `${hours}:${minutes}`
+            return newTime
         },
         validate() {
             //console.log('validate');
@@ -321,23 +323,38 @@ const app = new Vue({
             this.saveLastMsg()
         },
         getRndInteger(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+            return Math.floor(Math.random() * (max - min)) + min;
         },
         getRndMsgTxt() {
             return this.rndTxtMsg[this.getRndInteger(0, this.rndTxtMsg.length)]
         },
+        generateNewMsg() {
+            const newDate = new Date();
+            const newMsgTxt = this.getRndMsgTxt();
+            const newMsg = {
+                msgTime: this.takeTime(newDate),
+                message: newMsgTxt,
+                status: 'received'
+            };
+            this.contacts[this.activeChat].messages.push(newMsg);
+            this.saveLastMsg()
+            this.saveLastAccess()
+        },
         receiveMsg() {
             setTimeout(() => {
-                const newDate = new Date();
-                const newMsgTxt = this.getRndMsgTxt();
-                const newMsg = {
-                    msgTime: this.takeTime(newDate),
-                    message: newMsgTxt,
-                    status: 'received'
-                };
-                this.contacts[this.activeChat].messages.push(newMsg);
-                this.saveLastMsg()
-                this.saveLastAccess()
+                this.isOnline = true
+                setTimeout(() => {
+                    this.isContactTyping = true
+                    setTimeout(() => {
+                        this.generateNewMsg()
+                        this.isContactTyping = false
+                        setTimeout(() => {
+                            this.isOnline = false
+                            const date = new Date()
+                            this.contacts[this.activeChat].lastAccess = this.takeTime(date)
+                        }, 2000)
+                    }, 2000)
+                }, 1000)
             }, 1000);
         },
         searchContact() {
@@ -362,7 +379,7 @@ const app = new Vue({
             //console.log(this.activeChat);
         },
         deleteMessage(i) {
-            //console.log(i);
+            console.log(i, 'cliccato');
             //console.log('cliccato');
             this.closePopUp()
             this.contacts[this.activeChat].messages.splice(i, 1)

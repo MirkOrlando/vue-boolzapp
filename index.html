@@ -75,7 +75,11 @@
                     </div>
                     <div class="details fs_075">
                         <div class="name_contact">{{contacts[activeChat].name}}</div>
-                        <div class="last_access">Ultimo accesso oggi alle {{contacts[activeChat].lastAccess}}</div>
+                        <div class="status">
+                            <span v-if="isOnline && isContactTyping">Sta scrivendo...</span>
+                            <span v-else-if="isOnline">Online</span>
+                            <span v-else>Ultimo accesso oggi alle {{contacts[activeChat].lastAccess}}</span>
+                        </div>
                     </div>
                     <div class="actions">
                         <i class="fa-solid fa-search"></i>
@@ -93,7 +97,7 @@
                             <div class="time fs_075">{{thumb.msgTime}}</div>
                             <div class="dropDown" :class="!thumb.dropDownVisible ? 'invisible' : ''">
                                 <div class="dropDownItem">Message info</div>
-                                <div class="dropDownItem" @click="deleteMessage(thumb, index)">Delete message</div>
+                                <div class="dropDownItem" @click="deleteMessage(index)">Delete message</div>
                             </div>
                         </div>
                     </div>
