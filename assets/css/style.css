@@ -28,6 +28,7 @@ img {
 i {
     color: var(--icons_dark);
     cursor: pointer;
+    transition: color 500ms linear;
 }
 
 label {
@@ -114,6 +115,10 @@ label {
 
 .chats_preview>.chat:hover {
     background-color: #E9EBEB;
+}
+
+i:hover {
+    color: black;
 }
 
 

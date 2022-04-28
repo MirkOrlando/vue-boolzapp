@@ -87,7 +87,7 @@
                         <i class="fa-solid fa-ellipsis-v p_relative" @click="clickEllipsis">
                             <div class="dropDown" :class="!isPopUpVisible ? 'invisible' : ''">
                                 <div class="dropDownItem" @click="deleteAllMsg">Elimina messaggi</div>
-                                <div class="dropDownItem">Elimina chat</div>
+                                <div class="dropDownItem" @click="deleteActiveChat">Elimina chat</div>
                             </div>
                         </i>
                     </div>

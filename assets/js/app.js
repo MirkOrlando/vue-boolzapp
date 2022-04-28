@@ -395,6 +395,9 @@ const app = new Vue({
         deleteAllMsg() {
             this.contacts[this.activeChat].messages = []
         },
+        deleteActiveChat() {
+            this.contacts.splice(this.activeChat, 1)
+        },
         closePopUp() {
             this.isPopUpVisible = false
             this.contacts.forEach(contact => {
