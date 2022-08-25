@@ -105,7 +105,10 @@
                         <div class="status">
                             <span v-if="isOnline && isContactTyping">Sta scrivendo...</span>
                             <span v-else-if="isOnline">Online</span>
-                            <span v-else>Ultimo accesso oggi alle {{contacts[activeChat].lastAccess}}</span>
+                            <span v-else>Ultimo accesso {{contacts[activeChat].lastAccess.date === (new
+                                Date()).toLocaleDateString('en-GB', { month: '2-digit', day: '2-digit', year: 'numeric'
+                                }) ? 'oggi' : `il ${contacts[activeChat].lastAccess.date}`}} alle
+                                {{contacts[activeChat].lastAccess.time}}</span>
                         </div>
                     </div>
                     <div class="actions">

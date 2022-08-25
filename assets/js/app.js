@@ -84,7 +84,7 @@ const app = new Vue({
             "Mi chiamo Massimo Decimo Meridio",
             "Sei proprio tu John Wayne? E io chi sarei?",
             "Vieni con me se vuoi vivere",
-            "Non odii anche tu i silenzi che mettono a disagio?",
+            "Non odi anche tu i silenzi che mettono a disagio?",
             "Ok",
             "Cosa vedono i tuoi occhi da elfo?",
             "I am Ironman"
@@ -249,13 +249,14 @@ const app = new Vue({
         getActive(i) {
             this.activeChat = i
         },
-        getMsgTime() {
-            //console.log('getmsgtime is running');
+        getMsgDateTime() {
+            //console.log('getmsgDatetime is running');
             this.contacts.forEach((contact) => {
                 //console.log(index, contact);
                 contact.messages.forEach((message) => {
                     //console.log(index, message);
                     //console.log(message.date.slice(11, 16));
+                    message.msgDate = message.date.slice(0, 10)
                     message.msgTime = message.date.slice(11, 16)
                 });
             });
@@ -292,11 +293,12 @@ const app = new Vue({
             });
         },
         saveLastAccess() {
-            let lastAccess
             this.contacts.forEach(contact => {
+                let lastAccess = {}
                 contact.messages.forEach(message => {
                     if (message.status === "received") {
-                        lastAccess = message.msgTime
+                        lastAccess.time = message.msgTime
+                        lastAccess.date = message.msgDate
                     }
                 });
                 contact.lastAccess = lastAccess
@@ -353,6 +355,7 @@ const app = new Vue({
                 const newDate = new Date();
                 const newMsg = {
                     date: `${newDate.toLocaleDateString('en-GB', { month: '2-digit', day: '2-digit', year: 'numeric' })} ${this.takeTime(newDate)}`,
+                    msgDate: newDate.toLocaleDateString('en-GB', { month: '2-digit', day: '2-digit', year: 'numeric' }),
                     msgTime: this.takeTime(newDate),
                     message: this.txtMessage,
                     status: 'sent'
@@ -377,6 +380,7 @@ const app = new Vue({
             const newMsgTxt = this.getRndMsgTxt();
             const newMsg = {
                 date: `${newDate.toLocaleDateString('en-GB', { month: '2-digit', day: '2-digit', year: 'numeric' })} ${this.takeTime(newDate)}`,
+                msgDate: newDate.toLocaleDateString('en-GB', { month: '2-digit', day: '2-digit', year: 'numeric' }),
                 msgTime: this.takeTime(newDate),
                 message: newMsgTxt,
                 status: 'received'
@@ -397,7 +401,8 @@ const app = new Vue({
                         setTimeout(() => {
                             this.isOnline = false
                             const date = new Date()
-                            this.contacts[this.activeChat].lastAccess = this.takeTime(date)
+                            this.saveLastAccess()
+                            /* this.contacts[this.activeChat].lastAccess = this.takeTime(date) */
                             this.getChatsSort()
                             this.activeChat = 0;
                         }, 2000)
@@ -431,9 +436,12 @@ const app = new Vue({
             this.closePopUp()
             this.contacts[this.activeChat].messages.splice(i, 1)
             this.saveLastMsg()
+            this.getChatsSort()
         },
         deleteAllMsg() {
             this.contacts[this.activeChat].messages = []
+            this.contacts[this.activeChat].lastMsg = {}
+            this.getChatsSort()
         },
         deleteActiveChat() {
             this.contacts.splice(this.activeChat, 1)
@@ -496,11 +504,14 @@ const app = new Vue({
         },
     },
     created() {
-        this.getMsgTime();
+        this.getMsgDateTime();
         this.createPropertyDropDownVisible();
         this.saveLastMsg();
         this.saveLastAccess();
         this.newSortedChats = this.contacts
+    },
+    mounted() {
+        this.getChatsSort()
     },
     computed: {
         sortedChats() {
