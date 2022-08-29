@@ -576,9 +576,11 @@ const app = new Vue({
         windowResize(e) {
             this.window = window;
             if (this.window.outerWidth < 768) {
-                const chat = document.querySelector('.chat.active')
-                if (chat) {
-                    chat.classList.remove('active')
+                const chats = document.querySelectorAll('.chat.active')
+                if (chats) {
+                    chats.forEach(chat => {
+                        chat.classList.remove('active')
+                    });
                 }
                 if (this.window.outerWidth < 250) {
                     this.saveLastMsg(15)
