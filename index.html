@@ -87,7 +87,7 @@
                         </div>
                         <!-- /aside_top -->
                         <div class="chats_preview">
-                            <div class="chat" :class="window.outerWidth > 768 && activeChat === index ? 'active' : ''"
+                            <div class="chat" :class="activeChat === index ? 'active' : ''"
                                 v-for="(contact, index) in sortedChats" v-if="contact.visible"
                                 @click="getActive(index)">
                                 <div class="propic">
@@ -128,8 +128,8 @@
                                 </div>
                             </div>
                             <div class="actions">
-                                <i class="fa-solid fa-search"></i>
-                                <i class="fa-solid fa-paperclip"></i>
+                                <i class="fa-solid fa-search d-none d-sm-block"></i>
+                                <i class="fa-solid fa-paperclip d-none d-sm-block"></i>
                                 <i class="fa-solid fa-ellipsis-v p_relative" @click="clickEllipsis">
                                     <div class="dropDown" :class="!isPopUpVisible ? 'invisible' : ''">
                                         <div class="dropDownItem" @click="deleteAllMsg">Elimina messaggi</div>
@@ -164,7 +164,7 @@
                                 <i class="fa-regular fa-face-smile"></i>
                             </div>
                             <!-- /emoticons_action -->
-                            <input type="text" placeholder="Scrivi un messaggio" :oninput="validate()"
+                            <input class="textBox" type="text" placeholder="Scrivi un messaggio" :oninput="validate()"
                                 v-model="txtMessage" @keyup.enter="sendMsg" @keyup.8="isTypeInputEmpty"
                                 @keypress="isTyping">
                             <!-- /input -->

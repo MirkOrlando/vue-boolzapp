@@ -249,14 +249,17 @@ const app = new Vue({
     methods: {
         getActive(i) {
             this.activeChat = i
-            const aside = document.getElementById('chats_aside')
-            const main = document.getElementById('chat_main')
-            aside.classList.remove('active');
-            setTimeout(() => {
-                aside.parentElement.classList.add('not_visible');
-                main.classList.add('active');
-                main.parentElement.classList.remove('not_visible');
-            }, 250)
+            document.querySelector('input.textBox').focus()
+            if (this.window.outerWidth < 767) {
+                const aside = document.getElementById('chats_aside')
+                const main = document.getElementById('chat_main')
+                aside.classList.remove('active');
+                setTimeout(() => {
+                    aside.parentElement.classList.add('not_visible');
+                    main.classList.add('active');
+                    main.parentElement.classList.remove('not_visible');
+                }, 250)
+            }
         },
         showChats() {
             const aside = document.getElementById('chats_aside')
@@ -323,7 +326,8 @@ const app = new Vue({
                 contact.lastAccess = lastAccess
             });
         },
-        saveLastMsg() {
+        saveLastMsg(maxDigits = 20) {
+            console.log('cutting');
             let lastMsg
             this.contacts.forEach(contact => {
                 contact.messages.forEach(message => {
@@ -331,8 +335,8 @@ const app = new Vue({
                     if (message.length < 1) {
                         lastMsg = ''
                     } else {
-                        if (message.message.length > 20) {
-                            cutText = message.message.slice(0, 19) + "..."
+                        if (message.message.length > maxDigits) {
+                            cutText = message.message.slice(0, maxDigits - 1) + "..."
                         } else {
                             cutText = message.message
                         }
@@ -345,6 +349,7 @@ const app = new Vue({
                 });
                 contact.lastMsg = lastMsg
             });
+            this.getChatsSort();
         },
         takeTime(date) {
             let hours;
@@ -384,7 +389,19 @@ const app = new Vue({
                 this.txtMessage = '';
                 this.receiveMsg();
             }
-            this.saveLastMsg()
+            if (this.window.outerWidth < 250) {
+                this.saveLastMsg(15)
+            } else if (this.window.outerWidth < 320) {
+                this.saveLastMsg()
+            } else if (this.window.outerWidth < 400) {
+                this.saveLastMsg(30)
+            } else if (this.window.outerWidth < 500) {
+                this.saveLastMsg(100)
+            } else if (this.window.outerWidth < 768) {
+                this.saveLastMsg(200)
+            } else {
+                this.saveLastMsg()
+            }
             this.getChatsSort()
             this.activeChat = 0;
         },
@@ -405,7 +422,19 @@ const app = new Vue({
                 status: 'received'
             };
             this.contacts[this.activeChat].messages.push(newMsg);
-            this.saveLastMsg()
+            if (this.window.outerWidth < 250) {
+                this.saveLastMsg(15)
+            } else if (this.window.outerWidth < 320) {
+                this.saveLastMsg()
+            } else if (this.window.outerWidth < 400) {
+                this.saveLastMsg(30)
+            } else if (this.window.outerWidth < 500) {
+                this.saveLastMsg(100)
+            } else if (this.window.outerWidth < 768) {
+                this.saveLastMsg(200)
+            } else {
+                this.saveLastMsg()
+            }
             this.saveLastAccess()
         },
         receiveMsg() {
@@ -421,7 +450,6 @@ const app = new Vue({
                             this.isOnline = false
                             const date = new Date()
                             this.saveLastAccess()
-                            /* this.contacts[this.activeChat].lastAccess = this.takeTime(date) */
                             this.getChatsSort()
                             this.activeChat = 0;
                         }, 2000)
@@ -454,7 +482,19 @@ const app = new Vue({
             //console.log(i, 'cliccato');
             this.closePopUp()
             this.contacts[this.activeChat].messages.splice(i, 1)
-            this.saveLastMsg()
+            if (this.window.outerWidth < 250) {
+                this.saveLastMsg(15)
+            } else if (this.window.outerWidth < 320) {
+                this.saveLastMsg()
+            } else if (this.window.outerWidth < 400) {
+                this.saveLastMsg(30)
+            } else if (this.window.outerWidth < 500) {
+                this.saveLastMsg(100)
+            } else if (this.window.outerWidth < 768) {
+                this.saveLastMsg(100)
+            } else {
+                this.saveLastMsg()
+            }
             this.getChatsSort()
         },
         deleteAllMsg() {
@@ -508,7 +548,6 @@ const app = new Vue({
         },
         confirmNewChat() {
             if (this.newName !== '' && this.newIcon !== '') {
-                console.log('cliccato');
                 const newContact = {
                     name: this.newName,
                     avatar: this.newIcon,
@@ -519,48 +558,73 @@ const app = new Vue({
                 this.isPopUpNewChatVisible = false;
                 this.newName = '';
                 this.newIcon = '';
-                this.saveLastMsg()
+                if (this.window.outerWidth < 250) {
+                    this.saveLastMsg(15)
+                } else if (this.window.outerWidth < 320) {
+                    this.saveLastMsg()
+                } else if (this.window.outerWidth < 400) {
+                    this.saveLastMsg(30)
+                } else if (this.window.outerWidth < 500) {
+                    this.saveLastMsg(100)
+                } else if (this.window.outerWidth < 768) {
+                    this.saveLastMsg(200)
+                } else {
+                    this.saveLastMsg()
+                }
             }
         },
         windowResize(e) {
-            this.window = window
-            if (this.window.innerWidth >= 768) {
+            this.window = window;
+            if (this.window.outerWidth < 768) {
+                const chat = document.querySelector('.chat.active')
+                if (chat) {
+                    chat.classList.remove('active')
+                }
+                if (this.window.outerWidth < 250) {
+                    this.saveLastMsg(15)
+                } else if (this.window.outerWidth < 320) {
+                    this.saveLastMsg()
+                } else if (this.window.outerWidth < 400) {
+                    this.saveLastMsg(30)
+                } else if (this.window.outerWidth < 500) {
+                    this.saveLastMsg(100)
+                } else if (this.window.outerWidth < 768) {
+                    this.saveLastMsg(200)
+                } else {
+                    this.saveLastMsg()
+                }
+            } else {
                 const chats = document.querySelectorAll('.chat')
+
                 let i = 0
                 chats.forEach(chat => {
+                    i++
                     if (this.activeChat === i) {
                         chat.classList.add('active')
                     }
-                    i++
                 });
-            } else {
-                const chats = document.querySelectorAll('.chat')
-                let i = 0
-                chats.forEach(chat => {
-                    if (this.activeChat === i) {
-                        chat.classList.remove('active')
-                    }
-                    i++
-                });
+                this.saveLastMsg()
             }
         }
     },
     created() {
+        this.window = window
+        window.addEventListener("resize", this.windowResize);
         this.getMsgDateTime();
         this.createPropertyDropDownVisible();
-        this.saveLastMsg();
         this.saveLastAccess();
         this.newSortedChats = this.contacts
-        this.window = window;
-        console.log(this.window);
-        window.addEventListener("resize", this.windowResize);
     },
     mounted() {
+        this.windowResize();
         this.getChatsSort()
     },
     computed: {
         sortedChats() {
             return this.newSortedChats
         }
+    },
+    destroyed() {
+        window.removeEventListener("resize", this.windowResize);
     },
 })
