@@ -65,6 +65,7 @@ aggiungere un'icona per cambiare la modalità light/dark: dovrebbe essere suffic
 const app = new Vue({
     el: '#app',
     data: {
+        window: null,
         linkImg: './assets/img/avatar',
         extensionImg: '.jpg',
         activeChat: 0,
@@ -248,6 +249,24 @@ const app = new Vue({
     methods: {
         getActive(i) {
             this.activeChat = i
+            const aside = document.getElementById('chats_aside')
+            const main = document.getElementById('chat_main')
+            aside.classList.remove('active');
+            setTimeout(() => {
+                aside.parentElement.classList.add('not_visible');
+                main.classList.add('active');
+                main.parentElement.classList.remove('not_visible');
+            }, 250)
+        },
+        showChats() {
+            const aside = document.getElementById('chats_aside')
+            const main = document.getElementById('chat_main')
+            main.classList.remove('active');
+            setTimeout(() => {
+                main.parentElement.classList.add('not_visible');
+                aside.classList.add('active');
+                aside.parentElement.classList.remove('not_visible');
+            }, 250)
         },
         getMsgDateTime() {
             //console.log('getmsgDatetime is running');
@@ -503,6 +522,28 @@ const app = new Vue({
                 this.saveLastMsg()
             }
         },
+        windowResize(e) {
+            this.window = window
+            if (this.window.innerWidth >= 768) {
+                const chats = document.querySelectorAll('.chat')
+                let i = 0
+                chats.forEach(chat => {
+                    if (this.activeChat === i) {
+                        chat.classList.add('active')
+                    }
+                    i++
+                });
+            } else {
+                const chats = document.querySelectorAll('.chat')
+                let i = 0
+                chats.forEach(chat => {
+                    if (this.activeChat === i) {
+                        chat.classList.remove('active')
+                    }
+                    i++
+                });
+            }
+        }
     },
     created() {
         this.getMsgDateTime();
@@ -510,6 +551,9 @@ const app = new Vue({
         this.saveLastMsg();
         this.saveLastAccess();
         this.newSortedChats = this.contacts
+        this.window = window;
+        console.log(this.window);
+        window.addEventListener("resize", this.windowResize);
     },
     mounted() {
         this.getChatsSort()

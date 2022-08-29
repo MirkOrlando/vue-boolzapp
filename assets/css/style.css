@@ -93,6 +93,9 @@ label {
     background-color: transparent;
 }
 
+.back {
+    display: none;
+}
 
 /* #endregion common */
 
@@ -143,8 +146,10 @@ label {
 
 #chats_aside {
     height: 100%;
+    width: 100%;
     background-color: white;
     border-right: 1px solid #D6D6D6;
+    transition: opacity 250ms linear;
 }
 
 
@@ -327,6 +332,8 @@ label {
 
 #chat_main {
     height: 100%;
+    width: 100%;
+    transition: opacity 250ms linear;
 }
 
 /* #region contact_info */
@@ -475,8 +482,40 @@ label {
 
 /* #endregion chat_main */
 
+@media screen and (max-width: 767px) {
+
+    .back {
+        display: block;
+    }
+
+    .col.not_visible {
+        flex: 0;
+        overflow: hidden;
+    }
+
+    .col>#chats_aside,
+    .col>#chat_main {
+        opacity: 0;
+    }
+
+    .col>#chats_aside.active,
+    .col>#chat_main.active {
+        opacity: 1;
+    }
+
+    .chat_body {
+        padding: 1rem;
+    }
+
+    .row>.message {
+        min-width: 60px;
+        max-width: calc(100% - 2rem);
+    }
+
+}
+
 @media screen and (min-width: 1400px) {
-    .container_boolzap {
+    .container_boolzapp {
         height: 90vh;
         position: absolute;
         top: 50%;
