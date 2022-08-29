@@ -12,157 +12,180 @@
         integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=='
         crossorigin='anonymous' referrerpolicy='no-referrer' />
 
+    <!-- Bootstrap v.5.2.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap-grid.min.css"
+        integrity="sha512-8zKdCtHHn4yrmrAKteDmaIVUMppsWMTlaZCffpRG6k6sVHwWQ2kiJOFQ22e7dSPc7yYD/GC5onkJCfxemQsyeQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
     <div id="app">
-        <div class="container">
-            <aside id="chats_aside">
-                <div class="aside_top">
-                    <div class="user_info">
-                        <div class="propic">
-                            <img src="./assets/img/avatar_io.jpg" alt="">
-                        </div>
-                        <div class="name_contact fs_075">
-                            Sofia
-                        </div>
-                        <div class="actions">
-                            <div class="popupNewChat" :class="!isPopUpNewChatVisible ? 'invisible' : ''">
-                                <h3>Avvia una nuova conversazione</h3>
-                                <div class="name">
-                                    <input type="text" placeholder="Digita il nome" v-model="newName">
+        <div class="container-fluid container-xxl container_boolzapp p-0 m-0">
+            <div class="row m-0 h_100">
+                <div class="col col-lg-3 p-0 m-0 h_100">
+                    <aside id="chats_aside">
+                        <div class="aside_top">
+                            <div class="user_info">
+                                <div class="propic">
+                                    <img src="./assets/img/avatar_io.jpg" alt="">
                                 </div>
-                                <div class="img_link">
-                                    <input type="text" placeholder="Digita il link all'icona" v-model="newIcon">
+                                <div class="name_contact fs_075">
+                                    Sofia
                                 </div>
-                                <div class="btn_action">
-                                    <button class="btn confirm" :oninput="validate()"
-                                        @click="confirmNewChat">Conferma</button>
-                                    <button class="btn cancel" :oninput="validate()"
-                                        @click="regretNewChat">Annulla</button>
+                                <div class="actions">
+                                    <div class="popupNewChat" :class="!isPopUpNewChatVisible ? 'invisible' : ''">
+                                        <h3>Avvia una nuova conversazione</h3>
+                                        <div class="name">
+                                            <input type="text" placeholder="Digita il nome" v-model="newName"
+                                                @keyup.enter="confirmNewChat">
+                                        </div>
+                                        <div class="img_link">
+                                            <input type="text" placeholder="Digita il link all'icona" v-model="newIcon"
+                                                @keyup.enter="confirmNewChat">
+                                        </div>
+                                        <div class="btn_action">
+                                            <button class="btn confirm" :oninput="validate()"
+                                                @click="confirmNewChat">Conferma</button>
+                                            <button class="btn cancel" :oninput="validate()"
+                                                @click="regretNewChat">Annulla</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <i class="fa-solid fa-circle-notch"></i>
+                                    </div>
+                                    <div class="w_label p_relative">
+                                        <label for="" @click="clickNewChat"></label>
+                                        <i class="fa-solid fa-message">
+                                        </i>
+                                    </div>
+                                    <div>
+                                        <i class="fa-solid fa-ellipsis-v"></i>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <i class="fa-solid fa-circle-notch"></i>
+                            <!-- /user_info -->
+                            <div class="notification">
+                                <div class="icon_notification">
+                                    <i class="fa-solid fa-bell-slash"></i>
+                                </div>
+                                <div class="text_notification">
+                                    <div class="text fs_075">Ricevi notifiche di nuovi messaggi</div>
+                                    <div class="action fs_075">Attiva notifiche desktop</div>
+                                </div>
                             </div>
-                            <div class="w_label p_relative">
-                                <label for="" @click="clickNewChat"></label>
-                                <i class="fa-solid fa-message">
+                            <!-- /notification -->
+                            <div class="search_chat">
+                                <button @click="searchContact">
+                                    <i class="fa-solid fa-search" class="fs_075"></i>
+                                </button>
+                                <input class="fs_075" type="text" placeholder="Cerca o inizia una nuova chat"
+                                    v-model="searchKey" @keyup="searchContact">
+                            </div>
+                            <!-- /search_chat -->
+                        </div>
+                        <!-- /aside_top -->
+                        <div class="chats_preview">
+                            <div class="chat" :class="activeChat === index ? 'active' : ''"
+                                v-for="(contact, index) in sortedChats" v-if="contact.visible"
+                                @click="getActive(index)">
+                                <div class="propic">
+                                    <img :src="linkImg + contact.avatar + extensionImg" alt="">
+                                </div>
+                                <div class="details">
+                                    <div class="name_contact">{{contact.name}}</div>
+                                    <div class="last_message fs_075" v-if="contact.lastMsg">{{contact.lastMsg.text}}
+                                    </div>
+                                </div>
+                                <div class="time fs_075" v-if="contact.lastMsg">{{contact.lastMsg.date}}</div>
+                            </div>
+                        </div>
+                        <!-- /chats_preview -->
+                    </aside>
+                    <!-- /chats_aside -->
+                </div>
+                <div class="col col-lg-9 p-0 m-0 h_100">
+                    <main id="chat_main">
+                        <div class="contact_info">
+                            <div class="propic">
+                                <img :src="linkImg + contacts[activeChat].avatar + extensionImg" alt="">
+                            </div>
+                            <div class="details fs_075">
+                                <div class="name_contact">{{contacts[activeChat].name}}</div>
+                                <div class="status">
+                                    <span v-if="isOnline && isContactTyping">Sta scrivendo...</span>
+                                    <span v-else-if="isOnline">Online</span>
+                                    <span v-else-if="contacts[activeChat].lastAccess">Ultimo accesso
+                                        {{contacts[activeChat].lastAccess.date === (new
+                                        Date()).toLocaleDateString('en-GB', { month: '2-digit', day: '2-digit', year:
+                                        'numeric'
+                                        }) ? 'oggi' : `il ${contacts[activeChat].lastAccess.date}`}} alle
+                                        {{contacts[activeChat].lastAccess.time}}</span>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <i class="fa-solid fa-search"></i>
+                                <i class="fa-solid fa-paperclip"></i>
+                                <i class="fa-solid fa-ellipsis-v p_relative" @click="clickEllipsis">
+                                    <div class="dropDown" :class="!isPopUpVisible ? 'invisible' : ''">
+                                        <div class="dropDownItem" @click="deleteAllMsg">Elimina messaggi</div>
+                                        <div class="dropDownItem" @click="deleteActiveChat">Elimina chat</div>
+                                    </div>
                                 </i>
                             </div>
-                            <div>
-                                <i class="fa-solid fa-ellipsis-v"></i>
+                        </div>
+                        <!-- /contact_info -->
+                        <div class="chat_body">
+                            <div class="row" :class="thumb.status === 'sent' ? 'row_user' : 'row_contact'"
+                                v-for="(thumb, index) in contacts[activeChat].messages">
+                                <div class="filter"
+                                    v-if="thumb.dropDownVisible || isPopUpVisible || isPopUpNewChatVisible"
+                                    :style="isPopUpNewChatVisible ? 'background-color:#00000042;' : ''"
+                                    @click="closePopUp">
+                                </div>
+                                <div class="message">
+                                    <label for="" @click="clickMessage(thumb)"></label>
+                                    <span>{{thumb.message}}</span>
+                                    <div class="time fs_075">{{thumb.msgTime}}</div>
+                                    <div class="dropDown" :class="!thumb.dropDownVisible ? 'invisible' : ''">
+                                        <div class="dropDownItem">Info messaggio</div>
+                                        <div class="dropDownItem" @click="deleteMessage(index)">Elimina messaggio</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- /user_info -->
-                    <div class="notification">
-                        <div class="icon_notification">
-                            <i class="fa-solid fa-bell-slash"></i>
-                        </div>
-                        <div class="text_notification">
-                            <div class="text fs_075">Ricevi notifiche di nuovi messaggi</div>
-                            <div class="action fs_075">Attiva notifiche desktop</div>
-                        </div>
-                    </div>
-                    <!-- /notification -->
-                    <div class="search_chat">
-                        <button @click="searchContact">
-                            <i class="fa-solid fa-search" class="fs_075"></i>
-                        </button>
-                        <input class="fs_075" type="text" placeholder="Cerca o inizia una nuova chat"
-                            v-model="searchKey" @keyup="searchContact">
-                    </div>
-                    <!-- /search_chat -->
-                </div>
-                <!-- /aside_top -->
-                <div class="chats_preview">
-                    <div class="chat" :class="activeChat === index ? 'active' : ''"
-                        v-for="(contact, index) in sortedChats" v-if="contact.visible" @click="getActive(index)">
-                        <div class="propic">
-                            <img :src="linkImg + contact.avatar + extensionImg" alt="">
-                        </div>
-                        <div class="details">
-                            <div class="name_contact">{{contact.name}}</div>
-                            <div class="last_message fs_075" v-if="contact.lastMsg !== ''">{{contact.lastMsg.text}}
+                        <!-- /chat_body -->
+                        <div class="chat_type">
+                            <div class="emoticons_action">
+                                <i class="fa-regular fa-face-smile"></i>
                             </div>
-                        </div>
-                        <div class="time fs_075" v-if="contact.lastMsg !== ''">{{contact.lastMsg.date}}</div>
-                    </div>
-                </div>
-                <!-- /chats_preview -->
-
-            </aside>
-            <!-- /chats_aside -->
-            <main id="chat_main">
-                <div class="contact_info">
-                    <div class="propic">
-                        <img :src="linkImg + contacts[activeChat].avatar + extensionImg" alt="">
-                    </div>
-                    <div class="details fs_075">
-                        <div class="name_contact">{{contacts[activeChat].name}}</div>
-                        <div class="status">
-                            <span v-if="isOnline && isContactTyping">Sta scrivendo...</span>
-                            <span v-else-if="isOnline">Online</span>
-                            <span v-else>Ultimo accesso {{contacts[activeChat].lastAccess.date === (new
-                                Date()).toLocaleDateString('en-GB', { month: '2-digit', day: '2-digit', year: 'numeric'
-                                }) ? 'oggi' : `il ${contacts[activeChat].lastAccess.date}`}} alle
-                                {{contacts[activeChat].lastAccess.time}}</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <i class="fa-solid fa-search"></i>
-                        <i class="fa-solid fa-paperclip"></i>
-                        <i class="fa-solid fa-ellipsis-v p_relative" @click="clickEllipsis">
-                            <div class="dropDown" :class="!isPopUpVisible ? 'invisible' : ''">
-                                <div class="dropDownItem" @click="deleteAllMsg">Elimina messaggi</div>
-                                <div class="dropDownItem" @click="deleteActiveChat">Elimina chat</div>
+                            <!-- /emoticons_action -->
+                            <input type="text" placeholder="Scrivi un messaggio" :oninput="validate()"
+                                v-model="txtMessage" @keyup.enter="sendMsg" @keyup.8="isTypeInputEmpty"
+                                @keypress="isTyping">
+                            <!-- /input -->
+                            <div class="vocal_action" v-if="!isTypingResult">
+                                <i class="fa-solid fa-microphone"></i>
                             </div>
-                        </i>
-                    </div>
-                </div>
-                <!-- /contact_info -->
-                <div class="chat_body">
-                    <div class="row" :class="thumb.status === 'sent' ? 'row_user' : 'row_contact'"
-                        v-for="(thumb, index) in contacts[activeChat].messages">
-                        <div class="filter" v-if="thumb.dropDownVisible || isPopUpVisible || isPopUpNewChatVisible"
-                            :style="isPopUpNewChatVisible ? 'background-color:#00000042;' : ''" @click="closePopUp">
-                        </div>
-                        <div class="message">
-                            <label for="" @click="clickMessage(thumb)"></label>
-                            <span>{{thumb.message}}</span>
-                            <div class="time fs_075">{{thumb.msgTime}}</div>
-                            <div class="dropDown" :class="!thumb.dropDownVisible ? 'invisible' : ''">
-                                <div class="dropDownItem">Info messaggio</div>
-                                <div class="dropDownItem" @click="deleteMessage(index)">Elimina messaggio</div>
+                            <div class="sending_action" v-else>
+                                <i class="fa-solid fa-paper-plane" @click="sendMsg"></i>
                             </div>
+                            <!-- /vocal_action -->
                         </div>
-                    </div>
+                        <!-- /chat_type -->
+                    </main>
+                    <!-- /chat_main -->
                 </div>
-                <!-- /chat_body -->
-                <div class="chat_type">
-                    <div class="emoticons_action">
-                        <i class="fa-regular fa-face-smile"></i>
-                    </div>
-                    <!-- /emoticons_action -->
-                    <input type="text" placeholder="Scrivi un messaggio" :oninput="validate()" v-model="txtMessage"
-                        @keyup.enter="sendMsg" @keyup.8="isTypeInputEmpty" @keypress="isTyping">
-                    <!-- /input -->
-                    <div class="vocal_action" v-if="!isTypingResult">
-                        <i class="fa-solid fa-microphone"></i>
-                    </div>
-                    <div class="sending_action" v-else>
-                        <i class="fa-solid fa-paper-plane" @click="sendMsg"></i>
-                    </div>
-                    <!-- /vocal_action -->
-                </div>
-                <!-- /chat_type -->
-            </main>
-            <!-- /chat_main -->
+            </div>
 
         </div>
     </div>
+
+    <!-- Bootstrap js library v5.2.0 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js"
+        integrity="sha512-8Y8eGK92dzouwpROIppwr+0kPauu0qqtnzZZNEF8Pat5tuRNJxJXCkbQfJ0HlUG3y1HB3z18CSKmUo7i2zcPpg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Vue v2.6.14 -->
     <script src='https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'></script>

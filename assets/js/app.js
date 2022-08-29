@@ -489,6 +489,7 @@ const app = new Vue({
         },
         confirmNewChat() {
             if (this.newName !== '' && this.newIcon !== '') {
+                console.log('cliccato');
                 const newContact = {
                     name: this.newName,
                     avatar: this.newIcon,

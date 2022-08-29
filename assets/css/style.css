@@ -44,14 +44,8 @@ label {
     cursor: pointer;
 }
 
-.container {
-    width: 85%;
-    height: 90vh;
-    display: flex;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.container_boolzapp {
+    height: 100vh;
 }
 
 .btn {
@@ -105,6 +99,9 @@ label {
 
 /* #region utility */
 
+.h_100 {
+    height: 100%;
+}
 
 /* position */
 
@@ -145,7 +142,7 @@ label {
 /* #region aside */
 
 #chats_aside {
-    width: 25%;
+    height: 100%;
     background-color: white;
     border-right: 1px solid #D6D6D6;
 }
@@ -218,7 +215,6 @@ label {
 .user_info>.actions>.popupNewChat>.btn_action {
     text-align: right;
 }
-
 
 /* #endregion user_info */
 
@@ -330,10 +326,8 @@ label {
 /* #region chat_main */
 
 #chat_main {
-    width: 75%;
     height: 100%;
 }
-
 
 /* #region contact_info */
 
@@ -480,3 +474,13 @@ label {
 
 
 /* #endregion chat_main */
+
+@media screen and (min-width: 1400px) {
+    .container_boolzap {
+        height: 90vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
